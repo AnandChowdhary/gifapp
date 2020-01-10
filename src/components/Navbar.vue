@@ -20,9 +20,9 @@
           <li><router-link to="/@reactions">Reactions</router-link></li>
           <li><router-link to="/@entertainment">Entertainment</router-link></li>
           <li><router-link to="/@stickers">Stickers</router-link></li>
-          <li><router-link to="/@memes">Memes</router-link></li>
-          <li><router-link to="/@artists">Artists</router-link></li>
-          <li><router-link to="/@cartoons">Cartoons</router-link></li>
+          <li><router-link to="/memes">Memes</router-link></li>
+          <li><router-link to="/anime">Anime</router-link></li>
+          <li><router-link to="/cartoons">Cartoons</router-link></li>
         </ul>
       </div>
     </nav>
