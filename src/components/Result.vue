@@ -99,7 +99,7 @@ h2 {
   bottom: 0;
   width: 480px;
   max-width: 100%;
-  background-color: gray;
+  background-color: #ddd;
   svg {
     position: absolute;
     left: 50%;

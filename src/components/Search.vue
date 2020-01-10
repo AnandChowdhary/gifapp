@@ -34,7 +34,7 @@ export default class Search extends Vue {
   query = "";
 
   private mounted() {
-    this.query = this.$route.path.split("/")[1];
+    this.query = decodeURIComponent(this.$route.path.split("/")[1]);
   }
 
   search() {
@@ -44,7 +44,7 @@ export default class Search extends Vue {
 
   @Watch("$route")
   onRouteChanged() {
-    this.query = this.$route.path.split("/")[1];
+    this.query = decodeURIComponent(this.$route.path.split("/")[1]);
   }
 }
 </script>
