@@ -1,11 +1,7 @@
 <template>
   <div class="results">
     <div class="container">
-      <div v-if="loading">Loading...</div>
-      <div v-else-if="!results || !results.data || !results.data.length">
-        No results
-      </div>
-      <div v-else>
+      <div v-if="results && results.data && results.data.length">
         <article
           v-for="(item, index) in results.data"
           :key="`${index}${item.id}`"
@@ -13,7 +9,12 @@
           {{ item.id }}
         </article>
       </div>
+      <div v-else-if="!loading">
+        No results
+      </div>
+      <div v-if="loading">Loading...</div>
     </div>
+    <button @click="loadMore">Load more results</button>
   </div>
 </template>
 
@@ -29,6 +30,7 @@ import { emptyResult, GIPHYResult } from "@/interfaces";
 })
 export default class Results extends Vue {
   loading = false;
+  offset = 0;
   results!: GIPHYResult;
 
   private mounted() {
@@ -37,16 +39,22 @@ export default class Results extends Vue {
 
   @Watch("$route")
   onRouteChanged() {
+    this.offset = 0;
     this.fetchResults();
   }
 
   private fetchResults() {
     this.loading = true;
     this.$store
-      .dispatch("getResults", this.$route.path)
+      .dispatch("getResults", [this.$route.path, this.offset])
       .then(() => {})
       .catch(() => {})
       .finally(() => (this.loading = false));
+  }
+
+  loadMore() {
+    this.offset += 5;
+    this.fetchResults();
   }
 }
 </script>

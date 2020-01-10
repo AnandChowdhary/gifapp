@@ -32,8 +32,14 @@ import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 @Component
 export default class Search extends Vue {
   query = "";
+
+  private mounted() {
+    this.query = this.$route.path.split("/")[1];
+  }
+
   search() {
-    this.$router.push(`/${encodeURIComponent(this.query)}`);
+    if (this.query !== this.$route.path.split("/")[1])
+      this.$router.push(`/${encodeURIComponent(this.query)}`);
   }
 
   @Watch("$route")
