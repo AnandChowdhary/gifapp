@@ -3,6 +3,7 @@
     <video
       v-on:load="updateLoading"
       :src="item.images.original_mp4.mp4"
+      loading="lazy"
       autoplay
       loop
     ></video>
