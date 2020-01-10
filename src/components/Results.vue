@@ -61,7 +61,7 @@ export default class Results extends Vue {
   private fetchResults() {
     this.loading = true;
     this.$store
-      .dispatch("getResults", [this.$route.path, this.offset])
+      .dispatch("getResults", [this.$route.path.split("/")[1], this.offset])
       .then(() => {})
       .catch(() => {})
       .finally(() => (this.loading = false));

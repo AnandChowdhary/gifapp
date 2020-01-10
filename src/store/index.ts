@@ -25,9 +25,11 @@ export default new Vuex.Store<{
     getResults: async (store, [query, offset = 0]) => {
       if (!offset) store.commit("replaceResults", []);
       const results = await axios.get(
-        `https://api.giphy.com/v1/gifs/search?api_key=CdRKiCMbTnt9CkZTZ0lGukSczk6iT4Z6&q=${encodeURIComponent(
-          query
-        )}&limit=5&offset=${offset}&rating=G&lang=en`
+        query
+          ? `https://api.giphy.com/v1/gifs/search?api_key=CdRKiCMbTnt9CkZTZ0lGukSczk6iT4Z6&q=${encodeURIComponent(
+              query
+            )}&limit=5&offset=${offset}&rating=G&lang=en`
+          : `https://api.giphy.com/v1/gifs/trending?api_key=CdRKiCMbTnt9CkZTZ0lGukSczk6iT4Z6&limit=5&offset=${offset}&rating=G&lang=en`
       );
       if (offset) store.commit("addResults", results.data);
       else store.commit("replaceResults", results.data);
