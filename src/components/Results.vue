@@ -6,7 +6,7 @@
           v-for="(item, index) in results.data"
           :key="`${index}${item.id}`"
         >
-          {{ item.id }}
+          <Result :item="item" />
         </article>
       </div>
       <div v-else-if="!loading">
@@ -14,7 +14,7 @@
       </div>
       <div v-if="loading">Loading...</div>
     </div>
-    <button @click="loadMore">Load more results</button>
+    <button class="load-more" @click="loadMore">Load more results</button>
   </div>
 </template>
 
@@ -22,10 +22,14 @@
 import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 import { mapGetters } from "vuex";
 import { emptyResult, GIPHYResult } from "@/interfaces";
+import Result from "@/components/Result.vue";
 
 @Component({
   computed: {
     ...mapGetters(["results"])
+  },
+  components: {
+    Result
   }
 })
 export default class Results extends Vue {
@@ -59,4 +63,13 @@ export default class Results extends Vue {
 }
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.load-more {
+  display: block;
+  margin: 2rem auto;
+  font: inherit;
+  border: 1px solid #ddd;
+  padding: 0.5rem 1rem;
+  border-radius: 0.2rem;
+}
+</style>
