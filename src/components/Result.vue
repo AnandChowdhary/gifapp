@@ -54,11 +54,6 @@ import { GIPHYItem } from "../interfaces";
 @Component
 export default class Result extends Vue {
   @Prop({ required: true }) private item!: GIPHYItem;
-  loaded = false;
-
-  updateLoading() {
-    console.log("DONE");
-  }
 }
 </script>
 
