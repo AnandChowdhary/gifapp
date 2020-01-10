@@ -1,5 +1,5 @@
 {
-  "name": "giphy-app",
+  "name": "gifapp",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -53,5 +53,13 @@
       "vue-cli-service lint",
       "git add"
     ]
+  },
+  "vue": {
+    "pwa": {
+      "name": "GIFAPP",
+      "themeColor": "#ff008c",
+      "msTileColor": "#ff008c",
+      "appleMobileWebAppCapable": "yes"
+    }
   }
 }
