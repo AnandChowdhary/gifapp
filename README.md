@@ -1,8 +1,8 @@
-# 🖼️ Gifapp
+[![GIFAPP](/public/img/logo.svg?sanitize=true)](https://gifapp.netlify.com)
 
 GIPHY client webapp written in TypeScript/Vue
 
-[**Use app →**](https://gifapp.netlify.com)
+[**Use GIFAPP →**](https://gifapp.netlify.com)
 
 |  | Status |
 | - | - |
