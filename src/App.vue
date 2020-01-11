@@ -22,6 +22,7 @@ body {
   font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   margin: 0;
+  color: #31001b;
 }
 .container {
   margin: 0 auto;

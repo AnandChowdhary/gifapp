@@ -56,7 +56,7 @@ header#masthead {
     text-align: center;
     a {
       font-weight: bold;
-      color: #31001b;
+      color: inherit;
       font-size: 200%;
       display: flex;
       align-items: center;

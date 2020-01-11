@@ -8,8 +8,10 @@
           :item="item"
         />
       </div>
-      <div v-else-if="!loading">
-        No results
+      <div v-else-if="!loading" class="empty-state">
+        <img alt="" src="/img/undraw_empty_xct9.svg" />
+        <h1>No results</h1>
+        <p>We couldn't find any results for your search query.</p>
       </div>
       <div v-if="loading">
         <div class="loading"></div>
@@ -119,6 +121,13 @@ export default class Results extends Vue {
   }
   100% {
     left: 480px;
+  }
+}
+.empty-state {
+  text-align: center;
+  img {
+    width: 50%;
+    margin-top: 2.5rem;
   }
 }
 </style>
