@@ -1,13 +1,12 @@
 <template>
   <article class="card">
     <video
-      v-on:load="updateLoading"
       :src="item.images.original_mp4.mp4"
       loading="lazy"
       autoplay
       loop
     ></video>
-    <div class="loading" v-if="!loaded">
+    <div class="loading">
       <svg
         width="38"
         height="38"
@@ -101,6 +100,14 @@ h2 {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
+  }
+}
+@media (max-width: 500px) {
+  .card {
+    display: block;
+    .loading {
+      display: none;
+    }
   }
 }
 </style>

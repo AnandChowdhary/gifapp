@@ -75,11 +75,16 @@ header#masthead {
       list-style: none;
       display: flex;
       justify-content: space-between;
+      overflow-x: auto;
+      flex-wrap: nowrap;
       a {
         padding: 1rem 0;
         display: inline-block;
         color: inherit;
         text-transform: uppercase;
+      }
+      li:not(:first-of-type) a {
+        margin-left: 1.5rem;
       }
     }
   }
