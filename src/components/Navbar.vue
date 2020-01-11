@@ -43,7 +43,7 @@
             <span>{{ $t("title") }}</span>
           </router-link>
         </div>
-        <div class="toggles">
+        <div class="toggles toggles-r">
           <svg
             aria-hidden="true"
             preserveAspectRatio="none"
@@ -228,13 +228,8 @@ input:checked + .slider:before {
   transform: translateX(1rem);
 }
 @media (max-width: 500px) {
-  header#masthead .logo a {
-    img {
-      margin-right: 0;
-    }
-    span {
-      display: none;
-    }
+  header#masthead .toggles-r {
+    display: none;
   }
 }
 </style>
