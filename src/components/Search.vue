@@ -5,7 +5,7 @@
       <input
         id="search"
         type="search"
-        v-model="query"
+        v-model.trim="query"
         :placeholder="$t('search.placeholder')"
         required
       />
