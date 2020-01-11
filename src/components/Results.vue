@@ -1,7 +1,15 @@
 <template>
   <div class="results">
     <div class="container">
-      <div v-if="results && results.data && results.data.length">
+      <div v-if="hasError" class="info-state">
+        <img alt="" src="/img/undraw_bug_fixing_oc7a.svg" />
+        <h1>An error occurred</h1>
+        <p>We got an error in fetching the results.</p>
+        <div>
+          <button class="button" @click="tryAgain">Try again</button>
+        </div>
+      </div>
+      <div v-else-if="results && results.data && results.data.length">
         <div v-if="threeColumnView" class="row three-cols">
           <div>
             <Result
@@ -36,7 +44,7 @@
           />
         </div>
       </div>
-      <div v-else-if="!loading" class="empty-state">
+      <div v-else-if="!loading" class="info-state">
         <img alt="" src="/img/undraw_empty_xct9.svg" />
         <h1>No results</h1>
         <p>We couldn't find any results for your search query.</p>
@@ -49,8 +57,14 @@
         <div class="loading"></div>
       </div>
       <button
-        v-show="!loading && results && results.data && results.data.length"
-        class="load-more"
+        v-show="
+          !hasError &&
+            !loading &&
+            results &&
+            results.data &&
+            results.data.length
+        "
+        class="button load-more"
         ref="loadMoreButton"
         @click="loadMore"
       >
@@ -76,6 +90,7 @@ import Result from "@/components/Result.vue";
 })
 export default class Results extends Vue {
   loading = false;
+  hasError = false;
   offset = 0;
   results!: GIPHYResult;
   threeColumnView!: boolean;
@@ -115,7 +130,7 @@ export default class Results extends Vue {
         else return;
         this.loadMore()
           .then(() => window.requestAnimationFrame(this.setupObserver))
-          .catch(error => {})
+          .catch(() => (this.hasError = true))
           .finally(() => this.stopObserver());
       });
       const button = document.querySelector(".load-more");
@@ -155,13 +170,15 @@ export default class Results extends Vue {
   }
 
   private fetchResults() {
-    return new Promise((resolve, reject) => {
+    return new Promise(resolve => {
       this.loading = true;
       this.$store
         .dispatch("getResults", [this.$route.path.split("/")[1], this.offset])
-        .then(() => resolve())
-        .catch(error => reject(error))
-        .finally(() => (this.loading = false));
+        .catch(() => (this.hasError = true))
+        .finally(() => {
+          this.loading = false;
+          resolve();
+        });
     });
   }
 
@@ -169,11 +186,15 @@ export default class Results extends Vue {
     this.offset += 5;
     return await this.fetchResults();
   }
+
+  tryAgain() {
+    location.reload();
+  }
 }
 </script>
 
 <style scoped lang="scss">
-.load-more {
+.button {
   display: block;
   margin: 2rem auto;
   font: inherit;
@@ -219,7 +240,7 @@ export default class Results extends Vue {
     left: 480px;
   }
 }
-.empty-state {
+.info-state {
   text-align: center;
   img {
     width: 50%;
