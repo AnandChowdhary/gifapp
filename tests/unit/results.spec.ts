@@ -1,26 +1,57 @@
 import { shallowMount, createLocalVue } from "@vue/test-utils";
-import Results from "@/components/Results.vue";
 import Vuex from "vuex";
-import store from "@/store";
+import Results from "@/components/Results.vue";
 import router from "@/router";
-
-const mocks = { $t: () => {} };
+import { emptyResult } from "@/interfaces";
 const localVue = createLocalVue();
 localVue.use(Vuex);
-const options = {
-  store,
-  router,
-  localVue,
-  mocks
-};
+
+const wait = (time: number) =>
+  new Promise(resolve => {
+    setTimeout(() => resolve(), time);
+  });
+
+const mocks = { $t: () => {} };
 
 describe("Results.vue", () => {
-  it("has visible empty state", () => {
-    const wrapper = shallowMount(Results, options);
-    expect(wrapper.find(".info-state-empty").isVisible()).toBeTruthy();
+  let actions: {
+    getResults: jest.Mock;
+  };
+  let store: any;
+  beforeEach(() => {
+    actions = {
+      getResults: jest.fn()
+    };
+    store = new Vuex.Store({
+      actions,
+      getters: {
+        results: () => emptyResult
+      }
+    });
+    router.replace(`/${Math.random().toString()}`);
   });
-  it("has no error state", () => {
-    const wrapper = shallowMount(Results, options);
-    expect(wrapper.find(".info-state-error").element).toBeUndefined();
+
+  it("dispatches `getResults` on load", async () => {
+    const wrapper = shallowMount(Results, {
+      mocks,
+      router,
+      store,
+      localVue
+    });
+    await wait(100);
+    expect(actions.getResults).toHaveBeenCalled();
+  });
+
+  it("dispatches `getResults` on clicking `load more` button", async () => {
+    const wrapper = shallowMount(Results, {
+      mocks,
+      router,
+      store,
+      localVue
+    });
+    await wait(100);
+    wrapper.find("button.load-more").trigger("click");
+    await wait(100);
+    expect(actions.getResults).toHaveBeenCalledTimes(2);
   });
 });

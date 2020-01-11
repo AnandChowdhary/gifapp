@@ -36,52 +36,31 @@ const sampleResult = {
   }
 };
 const mocks = { $t: () => {} };
+const options = {
+  propsData: { item: sampleResult },
+  mocks
+};
 
 describe("Result.vue", () => {
   it("renders item video", () => {
-    const wrapper = shallowMount(Result, {
-      propsData: { item: sampleResult },
-      mocks
-    });
+    const wrapper = shallowMount(Result, options);
     expect(wrapper.find("video").element).toBeDefined();
   });
 
   it("video has mp4 url", () => {
-    const wrapper = shallowMount(Result, {
-      propsData: { item: sampleResult },
-      mocks
-    });
+    const wrapper = shallowMount(Result, options);
     expect(wrapper.find("video").element.getAttribute("src")).toBe(
       "https://media2.giphy.com/media/52F9eVNiorHmgBCq1p/giphy.mp4"
     );
   });
 
   it("video autoplays if no prefers-reduced-motion", () => {
-    const wrapper = shallowMount(Result, {
-      propsData: { item: sampleResult },
-      mocks
-    });
+    const wrapper = shallowMount(Result, options);
     expect(wrapper.find("video").element.getAttribute("autoplay")).toBeTruthy();
   });
 
   it("has correct title", () => {
-    const wrapper = shallowMount(Result, {
-      propsData: { item: sampleResult },
-      mocks
-    });
+    const wrapper = shallowMount(Result, options);
     expect(wrapper.find("h2").text()).toBe("adorable kittens GIF");
-  });
-
-  it("has caption for rating", () => {
-    const wrapper = shallowMount(Result, {
-      propsData: { item: sampleResult },
-      mocks
-    });
-    // Wait for the translations to kick in
-    requestAnimationFrame(() => {
-      expect(wrapper.find("img.rating").element.getAttribute("alt")).toBe(
-        "Rated g"
-      );
-    });
   });
 });
