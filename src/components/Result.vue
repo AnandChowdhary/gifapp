@@ -34,8 +34,7 @@
     </div>
     <div class="details">
       <h2>{{ item.title }}</h2>
-      <div>{{ item.username }}</div>
-      <div>{{ item.import_datetime }}</div>
+      <div>{{ new Date(item.import_datetime).toLocaleString() }}</div>
       <img
         class="rating"
         :alt="$t('rated', { rating: item.rating })"
