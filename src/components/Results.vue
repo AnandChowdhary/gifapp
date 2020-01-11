@@ -1,7 +1,7 @@
 <template>
   <div class="results">
     <div class="container">
-      <div v-if="hasError" class="info-state">
+      <div v-if="hasError" class="info-state info-state-error">
         <img alt="" src="/img/undraw_bug_fixing_oc7a.svg" />
         <h1>{{ $t("error.title") }}</h1>
         <p>{{ $t("error.intro") }}</p>
@@ -46,7 +46,7 @@
           />
         </div>
       </div>
-      <div v-else-if="!loading" class="info-state">
+      <div v-else-if="!loading" class="info-state info-state-empty">
         <img alt="" src="/img/undraw_empty_xct9.svg" />
         <h1>{{ $t("emptyState.title") }}</h1>
         <p>{{ $t("emptyState.intro") }}</p>
