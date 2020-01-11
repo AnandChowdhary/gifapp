@@ -1,6 +1,7 @@
 <template>
   <div class="results">
     <div class="container">
+      {{ threeColumnView }}
       <div v-if="results && results.data && results.data.length">
         <Result
           v-for="(item, index) in results.data"
@@ -40,7 +41,7 @@ import Result from "@/components/Result.vue";
 
 @Component({
   computed: {
-    ...mapGetters(["results"])
+    ...mapGetters(["results", "threeColumnView"])
   },
   components: {
     Result
@@ -50,6 +51,7 @@ export default class Results extends Vue {
   loading = false;
   offset = 0;
   results!: GIPHYResult;
+  threeColumnView!: boolean;
   intersectionObserver?: IntersectionObserver;
 
   private mounted() {

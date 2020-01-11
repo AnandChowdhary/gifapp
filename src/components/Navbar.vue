@@ -10,7 +10,33 @@
           </router-link>
         </div>
         <div class="toggles">
-          1 col/3 cols
+          <svg
+            aria-hidden="true"
+            preserveAspectRatio="none"
+            viewBox="0 0 84 84"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g fill-rule="evenodd">
+              <path d="M84 0v20H0V0zM84 64v20H0V64zM84 32v20H0V32z" />
+            </g>
+          </svg>
+          <label class="switch">
+            <span class="sr-only">Turn on 3-column view</span>
+            <input v-model="threeColumnView" type="checkbox" />
+            <span class="slider"></span>
+          </label>
+          <svg
+            aria-hidden="true"
+            preserveAspectRatio="none"
+            viewBox="0 0 84 84"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g fill-rule="evenodd">
+              <path
+                d="M0 0h20v48H0zM0 60h20v24H0zM64 0h20v84H64zM32 0h20v24H32zM32 60h20v24H32zM32 32h20v20H32z"
+              />
+            </g>
+          </svg>
         </div>
       </div>
     </div>
@@ -31,7 +57,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
+import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 import Search from "@/components/Search.vue";
 
 @Component({
@@ -39,7 +65,13 @@ import Search from "@/components/Search.vue";
     Search
   }
 })
-export default class Navbar extends Vue {}
+export default class Navbar extends Vue {
+  threeColumnView = false;
+  @Watch("threeColumnView")
+  onViewPreferenceChanged(value: boolean) {
+    this.$store.commit("toggleView", value);
+  }
+}
 </script>
 
 <style scoped lang="scss">
@@ -50,12 +82,21 @@ header#masthead {
     padding: 1rem 0;
   }
   .toggles {
-    text-align: right;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    svg {
+      width: 1.25rem;
+      height: 1.25rem;
+      g {
+        fill: #000;
+      }
+    }
   }
   .logo {
+    font-weight: bold;
     text-align: center;
     a {
-      font-weight: bold;
       color: inherit;
       font-size: 200%;
       display: flex;
@@ -88,5 +129,48 @@ header#masthead {
       }
     }
   }
+}
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 3rem;
+  height: 2rem;
+  margin: 0 0.5rem;
+}
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  border-radius: 10rem;
+  transition: 0.4s;
+}
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 1.5rem;
+  width: 1.5rem;
+  left: 0.25rem;
+  bottom: 0.25rem;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+input:checked + .slider {
+  background-color: #2196f3;
+}
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196f3;
+}
+input:checked + .slider:before {
+  transform: translateX(1rem);
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <form class="search" @submit.prevent="search">
     <div class="container">
-      <label for="search">{{ $t("search.search") }}</label>
+      <label class="sr-only" for="search">{{ $t("search.search") }}</label>
       <input
         id="search"
         type="search"
@@ -52,16 +52,6 @@ export default class Search extends Vue {
 <style scoped lang="scss">
 form {
   background-color: #aaa;
-  label {
-    position: absolute;
-    clip: rect(1px, 1px, 1px, 1px);
-    clip-path: inset(50%);
-    height: 1px;
-    margin: -1px;
-    overflow: hidden;
-    padding: 0;
-    width: 1px;
-  }
   input,
   button {
     background: none;

@@ -7,19 +7,22 @@ Vue.use(Vuex);
 
 export default new Vuex.Store<{
   results: GIPHYResult;
+  threeColumnView: boolean;
 }>({
   state: {
-    results: emptyResult
+    results: emptyResult,
+    threeColumnView: false
   },
   mutations: {
-    replaceResults: (state, results) => (state.results = results),
+    replaceResults: (state, results: GIPHYResult) => (state.results = results),
     addResults: (state, results: GIPHYResult) => {
       const newResults = { ...state.results };
       newResults.data = [...newResults.data, ...results.data];
       results.pagination = results.pagination;
       results.meta = results.meta;
       state.results = newResults;
-    }
+    },
+    toggleView: (state, view: boolean) => (state.threeColumnView = view)
   },
   actions: {
     getResults: async (store, [query, offset = 0]) => {
@@ -37,6 +40,7 @@ export default new Vuex.Store<{
   },
   modules: {},
   getters: {
-    results: state => state.results
+    results: state => state.results,
+    threeColumnView: state => state.threeColumnView
   }
 });
