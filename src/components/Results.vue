@@ -1,13 +1,40 @@
 <template>
   <div class="results">
     <div class="container">
-      {{ threeColumnView }}
       <div v-if="results && results.data && results.data.length">
-        <Result
-          v-for="(item, index) in results.data"
-          :key="`${index}${item.id}`"
-          :item="item"
-        />
+        <div v-if="threeColumnView" class="row three-cols">
+          <div>
+            <Result
+              size="small"
+              v-for="(item, index) in resultsInColumns[1]"
+              :key="`${index}${item.id}`"
+              :item="item"
+            />
+          </div>
+          <div>
+            <Result
+              size="small"
+              v-for="(item, index) in resultsInColumns[2]"
+              :key="`${index}${item.id}`"
+              :item="item"
+            />
+          </div>
+          <div>
+            <Result
+              size="small"
+              v-for="(item, index) in resultsInColumns[3]"
+              :key="`${index}${item.id}`"
+              :item="item"
+            />
+          </div>
+        </div>
+        <div v-else>
+          <Result
+            v-for="(item, index) in results.data"
+            :key="`${index}${item.id}`"
+            :item="item"
+          />
+        </div>
       </div>
       <div v-else-if="!loading" class="empty-state">
         <img alt="" src="/img/undraw_empty_xct9.svg" />
@@ -36,7 +63,7 @@
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 import { mapGetters } from "vuex";
-import { emptyResult, GIPHYResult } from "@/interfaces";
+import { emptyResult, GIPHYResult, GIPHYItem } from "@/interfaces";
 import Result from "@/components/Result.vue";
 
 @Component({
@@ -53,6 +80,13 @@ export default class Results extends Vue {
   results!: GIPHYResult;
   threeColumnView!: boolean;
   intersectionObserver?: IntersectionObserver;
+  resultsInColumns: {
+    [index: number]: GIPHYItem[];
+  } = {
+    1: [],
+    2: [],
+    3: []
+  };
 
   private mounted() {
     this.fetchResults();
@@ -87,6 +121,31 @@ export default class Results extends Vue {
       const button = document.querySelector(".load-more");
       if (button) this.intersectionObserver.observe(button);
     }
+  }
+
+  @Watch("results")
+  onResultsUpdated() {
+    if (!this.results || !this.results.data || !this.results.data.length)
+      return;
+    const data = this.results.data;
+    const N = Math.floor(data.length / 3);
+    const col1: GIPHYItem[] = [];
+    const col2: GIPHYItem[] = [];
+    const col3: GIPHYItem[] = [];
+    data.forEach((item, index) => {
+      if (index < N) {
+        col1.push(item);
+      } else if (index < N * 2) {
+        col2.push(item);
+      } else {
+        col3.push(item);
+      }
+    });
+    this.resultsInColumns = {
+      1: col1,
+      2: col2,
+      3: col3
+    };
   }
 
   @Watch("$route")
@@ -166,5 +225,8 @@ export default class Results extends Vue {
     width: 50%;
     margin-top: 2.5rem;
   }
+}
+.three-cols > div:nth-child(2) {
+  margin: 0 1rem;
 }
 </style>

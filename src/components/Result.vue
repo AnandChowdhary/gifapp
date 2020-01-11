@@ -1,5 +1,5 @@
 <template>
-  <article class="card">
+  <article :class="`card card--size-${size}`">
     <video
       :src="item.images.original_mp4.mp4"
       loading="lazy"
@@ -65,6 +65,7 @@ import { GIPHYItem } from "../interfaces";
 })
 export default class Result extends Vue {
   @Prop({ required: true }) private item!: GIPHYItem;
+  @Prop({ default: "large" }) private size!: string;
 }
 </script>
 
@@ -120,6 +121,12 @@ h2 {
     .loading {
       display: none;
     }
+  }
+}
+.card--size-small {
+  display: block;
+  .loading {
+    display: none;
   }
 }
 </style>
