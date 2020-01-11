@@ -18,8 +18,24 @@ export default class App extends Vue {}
 </script>
 
 <style lang="scss">
+// Theme
+$colorTheme: #ff008c;
+
 // Dark theme
 $colorBlack: #31001b;
+$colorDark1: darken(
+  $color: #ff008c,
+  $amount: 40
+);
+$colorDark2: darken(
+  $color: #ff008c,
+  $amount: 45
+);
+$colorDark3: darken(
+  $color: #ff008c,
+  $amount: 50
+);
+$colorDark4: #fff;
 
 // Light theme
 $colorWhite: #fff;
@@ -32,7 +48,6 @@ body {
   font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   margin: 0;
-  color: $colorBlack;
 }
 .container {
   margin: 0 auto;
@@ -61,6 +76,11 @@ a {
   width: 1px;
 }
 
+// Light theme
+body {
+  color: $colorBlack;
+  background-color: $colorWhite;
+}
 header#masthead {
   box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.25);
   .toggles svg g {
@@ -76,10 +96,10 @@ header#masthead {
     }
   }
   input:checked + .slider {
-    background-color: #2196f3;
+    background-color: $colorTheme;
   }
   input:focus + .slider {
-    box-shadow: 0 0 1px #2196f3;
+    box-shadow: 0 0 1px $colorTheme;
   }
 }
 form.search {
@@ -112,5 +132,59 @@ form.search {
 }
 .button {
   border: 1px solid $colorLight3;
+}
+
+// Dark theme
+@media (prefers-color-scheme: dark) {
+  body {
+    color: $colorWhite;
+    background-color: darken($color: $colorBlack, $amount: 7.5);
+  }
+  header#masthead {
+    box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.25);
+    .toggles svg g {
+      fill: $colorDark4;
+    }
+    nav {
+      background-color: $colorDark1;
+    }
+    .slider {
+      background-color: $colorWhite;
+      &::before {
+        background-color: $colorBlack;
+      }
+    }
+  }
+  form.search {
+    background-color: $colorDark2;
+    button svg path {
+      fill: $colorDark4;
+    }
+  }
+  .card {
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+    background-color: $colorBlack;
+  }
+  .loading {
+    background-color: $colorDark3;
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+    &::after {
+      background: $colorDark3;
+    }
+    &::before {
+      background: linear-gradient(
+        to right,
+        transparent,
+        $colorBlack,
+        transparent
+      );
+    }
+    &.loading-card {
+      background-color: $colorBlack;
+    }
+  }
+  .button {
+    border: 1px solid $colorDark3;
+  }
 }
 </style>
