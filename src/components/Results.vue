@@ -130,10 +130,11 @@ export default class Results extends Vue {
         });
         if (intersecting) tried = true;
         else return;
-        this.loadMore()
-          .then(() => window.requestAnimationFrame(this.setupObserver))
-          .catch(() => (this.hasError = true))
-          .finally(() => this.stopObserver());
+        if (this.results && this.results.data && this.results.data.length >= 9)
+          this.loadMore()
+            .then(() => window.requestAnimationFrame(this.setupObserver))
+            .catch(() => (this.hasError = true))
+            .finally(() => this.stopObserver());
       });
       const button = document.querySelector(".load-more");
       if (button) this.intersectionObserver.observe(button);
