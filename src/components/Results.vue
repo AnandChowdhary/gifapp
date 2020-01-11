@@ -21,8 +21,9 @@
         <div class="loading"></div>
       </div>
       <button
-        v-if="results && results.data && results.data.length"
+        v-show="!loading && results && results.data && results.data.length"
         class="load-more"
+        ref="loadMoreButton"
         @click="loadMore"
       >
         Load more results
@@ -49,9 +50,41 @@ export default class Results extends Vue {
   loading = false;
   offset = 0;
   results!: GIPHYResult;
+  intersectionObserver?: IntersectionObserver;
 
   private mounted() {
     this.fetchResults();
+    this.setupObserver();
+  }
+
+  private stopObserver() {
+    if (this.intersectionObserver) this.intersectionObserver.disconnect();
+    this.intersectionObserver = undefined;
+  }
+
+  private beforeDestroy() {
+    this.stopObserver();
+  }
+
+  private setupObserver() {
+    if ("IntersectionObserver" in window && "requestAnimationFrame" in window) {
+      let tried = false;
+      this.intersectionObserver = new IntersectionObserver(entries => {
+        if (tried) return;
+        let intersecting = false;
+        entries.forEach(entry => {
+          if (entry.isIntersecting) intersecting = true;
+        });
+        if (intersecting) tried = true;
+        else return;
+        this.loadMore()
+          .then(() => window.requestAnimationFrame(this.setupObserver))
+          .catch(error => {})
+          .finally(() => this.stopObserver());
+      });
+      const button = document.querySelector(".load-more");
+      if (button) this.intersectionObserver.observe(button);
+    }
   }
 
   @Watch("$route")
@@ -61,17 +94,19 @@ export default class Results extends Vue {
   }
 
   private fetchResults() {
-    this.loading = true;
-    this.$store
-      .dispatch("getResults", [this.$route.path.split("/")[1], this.offset])
-      .then(() => {})
-      .catch(() => {})
-      .finally(() => (this.loading = false));
+    return new Promise((resolve, reject) => {
+      this.loading = true;
+      this.$store
+        .dispatch("getResults", [this.$route.path.split("/")[1], this.offset])
+        .then(() => resolve())
+        .catch(error => reject(error))
+        .finally(() => (this.loading = false));
+    });
   }
 
-  loadMore() {
+  async loadMore() {
     this.offset += 5;
-    this.fetchResults();
+    return await this.fetchResults();
   }
 }
 </script>
