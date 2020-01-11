@@ -69,6 +69,7 @@ form {
     }
   }
   input {
+    color: inherit;
     padding: 1rem 0;
     box-sizing: border-box;
     width: 100%;

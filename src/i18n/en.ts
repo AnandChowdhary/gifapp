@@ -18,6 +18,7 @@ export default {
   rated: "Rated {rating}",
   navbar: {
     threeCol: "Turn on 3-column view",
+    darkThemeEnabled: "Switch to dark theme",
     items: {
       reactions: "Reactions",
       entertainment: "Entertainment",

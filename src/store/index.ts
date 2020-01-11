@@ -10,10 +10,12 @@ const LIMIT = 9;
 export default new Vuex.Store<{
   results: GIPHYResult;
   threeColumnView: boolean;
+  darkThemeEnabled: boolean;
 }>({
   state: {
     results: emptyResult,
-    threeColumnView: false
+    threeColumnView: false,
+    darkThemeEnabled: false
   },
   mutations: {
     replaceResults: (state, results: GIPHYResult) => (state.results = results),
@@ -24,7 +26,8 @@ export default new Vuex.Store<{
       results.meta = results.meta;
       state.results = newResults;
     },
-    toggleView: (state, view: boolean) => (state.threeColumnView = view)
+    toggleView: (state, view: boolean) => (state.threeColumnView = view),
+    toggleTheme: (state, theme: boolean) => (state.darkThemeEnabled = theme)
   },
   actions: {
     getResults: async (store, [query, offset = 0]) => {
@@ -43,6 +46,7 @@ export default new Vuex.Store<{
   modules: {},
   getters: {
     results: state => state.results,
-    threeColumnView: state => state.threeColumnView
+    threeColumnView: state => state.threeColumnView,
+    darkThemeEnabled: state => state.darkThemeEnabled
   }
 });

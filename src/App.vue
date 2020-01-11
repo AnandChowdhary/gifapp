@@ -6,15 +6,24 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
+import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 import Navbar from "@/components/Navbar.vue";
+import { mapGetters } from "vuex";
 
 @Component({
   components: {
     Navbar
+  },
+  computed: {
+    ...mapGetters(["darkThemeEnabled"])
   }
 })
-export default class App extends Vue {}
+export default class App extends Vue {
+  @Watch("darkThemeEnabled")
+  onThemePreferenceChanged(darkThemeEnabled: boolean) {
+    document.documentElement.className = darkThemeEnabled ? "dark" : "light";
+  }
+}
 </script>
 
 <style lang="scss">
@@ -135,7 +144,7 @@ form.search {
 }
 
 // Dark theme
-@media (prefers-color-scheme: dark) {
+.dark {
   body {
     color: $colorWhite;
     background-color: darken($color: $colorBlack, $amount: 7.5);
