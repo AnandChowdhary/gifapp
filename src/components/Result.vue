@@ -38,7 +38,7 @@
       <div>{{ item.import_datetime }}</div>
       <img
         class="rating"
-        :alt="`Rated ${item.rating}`"
+        :alt="$t('rated', { rating: item.rating })"
         :src="
           `https://tse2.mm.bing.net/th?q=${item.rating}+rating+icon&w=70&h=70&c=7&rs=1&p=0&dpr=3&pid=1.7&mkt=en-IN&adlt=moderate`
         "

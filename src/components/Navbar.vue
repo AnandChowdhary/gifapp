@@ -6,7 +6,7 @@
         <div class="logo">
           <router-link to="/">
             <img alt="" src="/img/icon.svg" />
-            <span>GIFAPP</span>
+            <span>{{ $t("title") }}</span>
           </router-link>
         </div>
         <div class="toggles">
@@ -21,7 +21,7 @@
             </g>
           </svg>
           <label class="switch">
-            <span class="sr-only">Turn on 3-column view</span>
+            <span class="sr-only">{{ $t("navbar.threeCol") }}</span>
             <input v-model="threeColumnView" type="checkbox" />
             <span class="slider"></span>
           </label>
@@ -43,12 +43,36 @@
     <nav>
       <div class="container">
         <ul>
-          <li><router-link to="/@reactions">Reactions</router-link></li>
-          <li><router-link to="/@entertainment">Entertainment</router-link></li>
-          <li><router-link to="/@stickers">Stickers</router-link></li>
-          <li><router-link to="/memes">Memes</router-link></li>
-          <li><router-link to="/anime">Anime</router-link></li>
-          <li><router-link to="/cartoons">Cartoons</router-link></li>
+          <li>
+            <router-link to="/@reactions">{{
+              $t("navbar.items.reactions")
+            }}</router-link>
+          </li>
+          <li>
+            <router-link to="/@entertainment">{{
+              $t("navbar.items.entertainment")
+            }}</router-link>
+          </li>
+          <li>
+            <router-link to="/@stickers">{{
+              $t("navbar.items.stickers")
+            }}</router-link>
+          </li>
+          <li>
+            <router-link to="/memes">{{
+              $t("navbar.items.memes")
+            }}</router-link>
+          </li>
+          <li>
+            <router-link to="/anime">{{
+              $t("navbar.items.anime")
+            }}</router-link>
+          </li>
+          <li>
+            <router-link to="/cartoons">{{
+              $t("navbar.items.cartoons")
+            }}</router-link>
+          </li>
         </ul>
       </div>
     </nav>
