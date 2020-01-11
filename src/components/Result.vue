@@ -3,7 +3,8 @@
     <video
       :src="item.images.original_mp4.mp4"
       loading="lazy"
-      autoplay
+      :autoplay="autoplay"
+      :controls="!autoplay"
       loop
     ></video>
     <div class="loading">
@@ -50,7 +51,18 @@
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { GIPHYItem } from "../interfaces";
 
-@Component
+@Component({
+  computed: {
+    autoplay() {
+      try {
+        // If the user prefers reduced motion, don't auto-play but show controls
+        if (window.matchMedia("(prefers-reduced-motion: reduce)")) return false;
+      } catch (error) {}
+      // TODO change to return true;
+      return false;
+    }
+  }
+})
 export default class Result extends Vue {
   @Prop({ required: true }) private item!: GIPHYItem;
 }
