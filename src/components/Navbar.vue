@@ -100,7 +100,6 @@ export default class Navbar extends Vue {
 
 <style scoped lang="scss">
 header#masthead {
-  box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.25);
   line-height: 1;
   .row {
     padding: 1rem 0;
@@ -112,9 +111,6 @@ header#masthead {
     svg {
       width: 1.25rem;
       height: 1.25rem;
-      g {
-        fill: #000;
-      }
     }
   }
   .logo {
@@ -133,7 +129,6 @@ header#masthead {
     }
   }
   nav {
-    background-color: #eee;
     ul {
       margin: 0;
       padding: 0;
@@ -173,7 +168,6 @@ header#masthead {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #ccc;
   border-radius: 10rem;
   transition: 0.4s;
 }
@@ -184,15 +178,8 @@ header#masthead {
   width: 1.5rem;
   left: 0.25rem;
   bottom: 0.25rem;
-  background-color: white;
   transition: 0.4s;
   border-radius: 50%;
-}
-input:checked + .slider {
-  background-color: #2196f3;
-}
-input:focus + .slider {
-  box-shadow: 0 0 1px #2196f3;
 }
 input:checked + .slider:before {
   transform: translateX(1rem);

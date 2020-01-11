@@ -51,7 +51,6 @@ export default class Search extends Vue {
 
 <style scoped lang="scss">
 form {
-  background-color: #aaa;
   input,
   button {
     background: none;
@@ -67,9 +66,6 @@ form {
     svg {
       height: 1.75rem;
       width: 1.75rem;
-      path {
-        fill: #000;
-      }
     }
   }
   input {

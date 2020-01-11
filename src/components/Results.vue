@@ -52,11 +52,11 @@
         <p>{{ $t("emptyState.intro") }}</p>
       </div>
       <div v-if="loading">
-        <div class="loading"></div>
-        <div class="loading"></div>
-        <div class="loading"></div>
-        <div class="loading"></div>
-        <div class="loading"></div>
+        <div class="loading loading-card"></div>
+        <div class="loading loading-card"></div>
+        <div class="loading loading-card"></div>
+        <div class="loading loading-card"></div>
+        <div class="loading loading-card"></div>
       </div>
       <button
         v-show="
@@ -200,7 +200,6 @@ export default class Results extends Vue {
   display: block;
   margin: 2rem auto;
   font: inherit;
-  border: 1px solid #ddd;
   padding: 0.5rem 1rem;
   border-radius: 0.2rem;
 }
@@ -209,7 +208,6 @@ export default class Results extends Vue {
   margin-top: 1rem;
   line-height: 1;
   border-radius: 0.2rem;
-  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
   position: relative;
   overflow: hidden;
   &::after {
@@ -220,7 +218,6 @@ export default class Results extends Vue {
     bottom: 0;
     width: 480px;
     max-width: 100%;
-    background: #ddd;
   }
   &::before {
     content: "";
@@ -230,7 +227,6 @@ export default class Results extends Vue {
     top: 0;
     bottom: 0;
     width: 300px;
-    background: linear-gradient(to right, transparent, white, transparent);
     animation: shine 1s linear infinite;
   }
 }

@@ -83,7 +83,6 @@ video {
   margin-top: 1rem;
   line-height: 1;
   border-radius: 0.2rem;
-  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
   display: flex;
   > .details {
     flex: 1 0 0;
@@ -107,7 +106,6 @@ h2 {
   bottom: 0;
   width: 480px;
   max-width: 100%;
-  background-color: #ddd;
   svg {
     position: absolute;
     left: 50%;
