@@ -55,7 +55,8 @@ import { GIPHYItem } from "../interfaces";
     autoplay() {
       try {
         // If the user prefers reduced motion, don't auto-play but show controls
-        if (window.matchMedia("(prefers-reduced-motion: reduce)")) return false;
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches)
+          return false;
       } catch (error) {}
       return true;
     }
