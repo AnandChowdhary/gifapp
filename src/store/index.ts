@@ -1,11 +1,9 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import axios from "axios";
 import { GIPHYResult, emptyResult } from "@/interfaces";
+import { giphyFetch } from "@/api";
 
 Vue.use(Vuex);
-
-const LIMIT = 9;
 
 export default new Vuex.Store<{
   results: GIPHYResult;
@@ -32,15 +30,9 @@ export default new Vuex.Store<{
   actions: {
     getResults: async (store, [query, offset = 0]) => {
       if (!offset) store.commit("replaceResults", []);
-      const results = await axios.get(
-        query
-          ? `https://api.giphy.com/v1/gifs/search?api_key=CdRKiCMbTnt9CkZTZ0lGukSczk6iT4Z6&q=${encodeURIComponent(
-              query
-            )}&limit=${LIMIT}&offset=${offset}&rating=G&lang=en`
-          : `https://api.giphy.com/v1/gifs/trending?api_key=CdRKiCMbTnt9CkZTZ0lGukSczk6iT4Z6&limit=${LIMIT}&offset=${offset}&rating=G&lang=en`
-      );
-      if (offset) store.commit("addResults", results.data);
-      else store.commit("replaceResults", results.data);
+      const data = await giphyFetch(query, offset);
+      if (offset) store.commit("addResults", data);
+      else store.commit("replaceResults", data);
     }
   },
   modules: {},
