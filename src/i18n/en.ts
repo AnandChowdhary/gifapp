@@ -17,6 +17,7 @@ export default {
   loadMore: "Load more results",
   rated: "Rated {rating}",
   timeAgo: "{date} ago",
+  source: "From {source}",
   navbar: {
     threeCol: "Turn on 3-column view",
     darkThemeEnabled: "Switch to dark theme",

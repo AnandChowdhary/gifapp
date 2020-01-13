@@ -34,14 +34,36 @@
     </div>
     <div class="details">
       <h2>{{ item.title }}</h2>
-      <div v-if="date">{{ $t("timeAgo", { date }) }}</div>
-      <img
-        class="rating"
-        :alt="$t('rated', { rating: item.rating })"
-        :src="
-          `https://tse2.mm.bing.net/th?q=${item.rating}+rating+icon&w=70&h=70&c=7&rs=1&p=0&dpr=3&pid=1.7&mkt=en-IN&adlt=moderate`
-        "
-      />
+      <div class="date" v-if="date">{{ $t("timeAgo", { date }) }}</div>
+      <div class="username" v-if="item.username">
+        <img
+          alt=""
+          :src="
+            `https://tse2.mm.bing.net/th?q=${item.username}+logo&w=70&h=70&c=7&rs=1&p=0&dpr=3&pid=1.7&mkt=en-IN&adlt=moderate`
+          "
+        />
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          :href="`https://giphy.com/${item.username}/`"
+          >@{{ item.username }}</a
+        >
+      </div>
+      <div class="source" v-if="item.source_tld && item.source">
+        <img alt="" :src="`https://unavatar.now.sh/${item.source_tld}`" />
+        <a target="_blank" rel="noopener noreferrer" :href="item.source">{{
+          $t("source", { source: item.source_tld })
+        }}</a>
+      </div>
+      <div class="rating" v-if="item.rating">
+        <img
+          alt=""
+          :src="
+            `https://tse2.mm.bing.net/th?q=${item.rating}+rating+icon&w=70&h=70&c=7&rs=1&p=0&dpr=3&pid=1.7&mkt=en-IN&adlt=moderate`
+          "
+        />
+        <span>{{ $t("rated", { rating: item.rating.toUpperCase() }) }}</span>
+      </div>
     </div>
   </article>
 </template>
@@ -106,11 +128,12 @@ h2 {
   margin: 0 0 1rem 0;
   line-height: 1.25;
 }
-.rating {
+img {
   height: 1.5rem;
   width: 1.5rem;
   border-radius: 100%;
-  margin-top: 1rem;
+  vertical-align: middle;
+  margin-right: 0.5rem;
 }
 .loading {
   position: absolute;
@@ -138,6 +161,20 @@ h2 {
   display: block;
   .loading {
     display: none;
+  }
+}
+.date {
+  margin-bottom: 1rem;
+}
+.username,
+.source {
+  margin-bottom: 0.5rem;
+  word-break: break-all;
+}
+a {
+  color: inherit;
+  &:hover {
+    text-decoration: underline;
   }
 }
 </style>
