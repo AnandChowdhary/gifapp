@@ -20,8 +20,8 @@ export interface GIPHYItem {
   source: string;
   title: string;
   rating: string;
-  import_datetime: Date;
-  trending_datetime: Date;
+  import_datetime: string;
+  trending_datetime: string;
   images: {
     downsized_large: GIPHYImage;
     fixed_height_small_still: GIPHYImage;

@@ -34,7 +34,7 @@
     </div>
     <div class="details">
       <h2>{{ item.title }}</h2>
-      <div>{{ new Date(item.import_datetime).toLocaleString() }}</div>
+      <div v-if="date">{{ $t("timeAgo", { date }) }}</div>
       <img
         class="rating"
         :alt="$t('rated', { rating: item.rating })"
@@ -49,6 +49,8 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { GIPHYItem } from "../interfaces";
+import { parse, formatDistanceToNow } from "date-fns";
+import { capitalizeFirstLetter } from "@/helpers";
 
 @Component({
   computed: {
@@ -65,6 +67,18 @@ import { GIPHYItem } from "../interfaces";
 export default class Result extends Vue {
   @Prop({ required: true }) private item!: GIPHYItem;
   @Prop({ default: "large" }) private size!: string;
+
+  date = "";
+
+  private created() {
+    if (!this.item) return;
+    const itemDate = parse(
+      this.item.import_datetime,
+      "yyyy-MM-dd HH:mm:ss",
+      new Date()
+    );
+    this.date = capitalizeFirstLetter(formatDistanceToNow(itemDate));
+  }
 }
 </script>
 
