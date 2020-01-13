@@ -19,6 +19,14 @@ import { mapGetters } from "vuex";
   }
 })
 export default class App extends Vue {
+  darkThemeEnabled!: boolean;
+
+  private created() {
+    document.documentElement.className = this.darkThemeEnabled
+      ? "dark"
+      : "light";
+  }
+
   @Watch("darkThemeEnabled")
   onThemePreferenceChanged(darkThemeEnabled: boolean) {
     document.documentElement.className = darkThemeEnabled ? "dark" : "light";

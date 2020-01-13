@@ -126,6 +126,12 @@ import Search from "@/components/Search.vue";
 export default class Navbar extends Vue {
   threeColumnView = false;
   darkThemeEnabled = false;
+
+  private created() {
+    this.threeColumnView = this.$store.state.threeColumnView;
+    this.darkThemeEnabled = this.$store.state.darkThemeEnabled;
+  }
+
   @Watch("threeColumnView")
   onViewPreferenceChanged(value: boolean) {
     this.$store.commit("toggleView", value);

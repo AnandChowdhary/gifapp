@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import createPersistedState from "vuex-persistedstate";
 import { GIPHYResult, emptyResult } from "@/interfaces";
 import { giphyFetch } from "@/api";
 
@@ -40,5 +41,10 @@ export default new Vuex.Store<{
     results: state => state.results,
     threeColumnView: state => state.threeColumnView,
     darkThemeEnabled: state => state.darkThemeEnabled
-  }
+  },
+  plugins: [
+    createPersistedState({
+      paths: ["threeColumnView", "darkThemeEnabled"]
+    })
+  ]
 });
