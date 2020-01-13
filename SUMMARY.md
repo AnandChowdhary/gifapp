@@ -35,7 +35,12 @@ Visit https://gifapp.ga to use the app in your browser.
 6. Translations, theme toggle, accessibility - 50 mins ([57d8e1f](https://github.com/AnandChowdhary/gifapp/commit/57d8e1f) to [8b3b0ea](https://github.com/AnandChowdhary/gifapp/commit/8b3b0ea))
 7. Complete unit tests - 1 hour ([a6b44a5](https://github.com/AnandChowdhary/gifapp/commit/a6b44a5) to [37ecd28](https://github.com/AnandChowdhary/gifapp/commit/37ecd28))
 
-Total time: 5 hours 50 mins
+**Total time:** 5 hours 50 mins
+
+Featured added after submission (because why not?):
+
+- Source, author name and icon in cards
+- Store theme/layout preference in local storage
 
 ## Future scope
 
