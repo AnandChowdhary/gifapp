@@ -5,6 +5,8 @@
       loading="lazy"
       :autoplay="autoplay"
       :controls="!autoplay"
+      playsinline
+      muted
       loop
     ></video>
     <div class="loading">
